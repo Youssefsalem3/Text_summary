@@ -36,7 +36,7 @@ with st.form(key="form1"):
 # In[6]:
 
 
-pip install torch==1.4.0
+#pip install torch==1.4.0
 
 
 # # importing the needed libraries
@@ -44,7 +44,7 @@ pip install torch==1.4.0
 # In[4]:
 
 
-import torch
+#import torch
 import json 
 from transformers import T5Tokenizer, T5ForConditionalGeneration, T5Config
 

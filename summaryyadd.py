@@ -30,13 +30,13 @@ with st.form(key="form1"):
 # In[5]:
 
 
-# !pip install transformers
+ !pip install transformers
 
 
 # In[6]:
 
 
-# !pip install torch==1.4.0
+ !pip install torch==1.4.0
 
 
 # # importing the needed libraries

@@ -3,65 +3,56 @@
 
 # # deployment
 
-# In[12]:
-
-
+#necessary libraries for deployment
 import streamlit as st
+import requests
+from streamlit_lottie import st_lottie
+
+#lottie function
+def load_lottie(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
 
-# In[13]:
-
-
+#Page header layout
 from PIL import Image
 image = Image.open('ApplAiOnly_Logo.png')
-st.image(image)
-with st.form(key="form1"):
+right_column, left_column = st.columns(2)
+with right_column:
+    st.title("                   ")
+    st.title("                   ")
+    st.title("                   ")
     st.title("Text Summarizer")
+with left_column:   
+    st.image(image)    
+    
+
+with st.form(key="form1"):
     text=st.text_input(label="Enter the required text")
-    submit=st.form_submit_button(label="Abstractive Summary")
-    submit2=st.form_submit_button(label="Extractive Summary")
+    right_column, left_column = st.columns(2)
+    with right_column:
+        submit=st.form_submit_button(label="Abstractive Summary")
+    with left_column:
+        submit2=st.form_submit_button(label="Extractive Summary")
     
 
 
-# # 1)Abstractive Summary
-
-# # Installing the required libraries
-
-# In[5]:
-
-
-#pip install transformers
-
-
-# In[6]:
-
-
-#pip install torch==1.4.0
-
-
-# # importing the needed libraries
-
-# In[4]:
-
-
-import torch
-import json 
-from transformers import T5Tokenizer, T5ForConditionalGeneration, T5Config
-
-
-
-
-# # summarizing the text
-
-# In[6]:
-
+# 1)Abstractive Summary
 
 def Asummarize(text):
+    # importing the needed libraries
+    import torch
+    import json 
+    from transformers import T5Tokenizer, T5ForConditionalGeneration, T5Config
+
     # # Setting the model
     model = T5ForConditionalGeneration.from_pretrained('t5-small')
     tokenizer = T5Tokenizer.from_pretrained('t5-small')
     device = torch.device('cpu')
 
+    # # preprocessing the text
     preprocess_text = text.strip().replace("\n","")
     t5_prepared_Text = "summarize: "+preprocess_text
     tokenized_text = tokenizer.encode(t5_prepared_Text, return_tensors="pt").to(device)
@@ -78,26 +69,17 @@ def Asummarize(text):
     return output
 
 
-# # 2)Extractive Summary
-
-# # Installing the required libraries
-
-# In[1]:
-
-
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize, sent_tokenize
-import nltk
-nltk.download('stopwords')
-nltk.download('punkt')
-
-
-# # summarizing the text
-
-# In[2]:
+# 2)Extractive Summary
 
 
 def Esummarize(text):
+
+    # Installing the required libraries
+    from nltk.corpus import stopwords
+    from nltk.tokenize import word_tokenize, sent_tokenize
+    import nltk
+    nltk.download('stopwords')
+    nltk.download('punkt')
     # Tokenizing the text
     stopWords = set(stopwords.words("english"))
     words = word_tokenize(text)
@@ -146,8 +128,8 @@ def Esummarize(text):
     return summary
 
 
-# In[10]:
 
+#Output of the summary for the given type
 
 if(submit==True):
     outputt=Asummarize(text)
@@ -158,3 +140,55 @@ if(submit2==True):
     st.subheader(outputt2, anchor=None)
     submit2=False
 
+
+#To adjust the lottie under the summary
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+st.subheader("""             """)
+#Robot lottie file
+animation_header = load_lottie("https://assets3.lottiefiles.com/private_files/lf30_ssm93drs.json")
+st_lottie(animation_header, speed=1, height=200, key="forth")
+
+
+
+
+#footer
+footer="""<style>
+a:link , a:visited{
+color: blue;
+background-color: transparent;
+text-decoration: underline;
+}
+
+a:hover,  a:active {
+color: white;
+background-color: transparent;
+text-decoration: underline;
+}
+
+.footer {
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color: black;
+color: blue;
+text-align: center;
+}
+</style>
+<div class="footer">
+<p>Developed by <a style='display: block; text-align: center;' href="https://linkedin.com/in/youssef-salem3" target="_blank">Youssef Salem</a>
+<a style='display: block; text-align: center;' href="https://linkedin.com/in/nour-ahmeddd-" target="_blank">Nour Ahmed</a>
+</p>
+</div>
+"""
+st.markdown(footer,unsafe_allow_html=True)

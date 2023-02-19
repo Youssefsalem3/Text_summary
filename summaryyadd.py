@@ -49,14 +49,6 @@ import json
 from transformers import T5Tokenizer, T5ForConditionalGeneration, T5Config
 
 
-# # Setting the model
-
-# In[5]:
-
-
-model = T5ForConditionalGeneration.from_pretrained('t5-small')
-tokenizer = T5Tokenizer.from_pretrained('t5-small')
-device = torch.device('cpu')
 
 
 # # summarizing the text
@@ -65,6 +57,11 @@ device = torch.device('cpu')
 
 
 def Asummarize(text):
+    # # Setting the model
+    model = T5ForConditionalGeneration.from_pretrained('t5-small')
+    tokenizer = T5Tokenizer.from_pretrained('t5-small')
+    device = torch.device('cpu')
+
     preprocess_text = text.strip().replace("\n","")
     t5_prepared_Text = "summarize: "+preprocess_text
     tokenized_text = tokenizer.encode(t5_prepared_Text, return_tensors="pt").to(device)

@@ -5,3 +5,4 @@ nltk==3.8.1
 tokenizers==0.13.2
 sentencepiece==0.1.97
 streamlit==1.4.0
+streamlit_lottie

@@ -132,9 +132,12 @@ def Esummarize(text):
 #Output of the summary for the given type
 
 if(submit==True):
-    outputt=Asummarize(text)
-    st.subheader(outputt, anchor=None)
-    submit=False
+    if(len(text.split())>=100):
+        outputt=Asummarize(text)
+        st.subheader(outputt, anchor=None)
+        submit=False
+    else:
+        st.subheader("Abstractive summary needs more words to summarize :(", anchor=None)
 if(submit2==True):
     outputt2=Esummarize(text)
     st.subheader(outputt2, anchor=None)

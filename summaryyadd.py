@@ -33,15 +33,17 @@ with st.form(key="form1"):
     text=st.text_input(label="Enter the required text")
     right_column, left_column = st.columns(2)
     with right_column:
+        minl=st.text_input(label="Enter the minmum length for abstractive summary")
         submit=st.form_submit_button(label="Abstractive Summary")
     with left_column:
+        maxl=st.text_input(label="Enter the maximum length for abstractive summary")
         submit2=st.form_submit_button(label="Extractive Summary")
     
 
 
 # 1)Abstractive Summary
 
-def Asummarize(text):
+def Asummarize(text,minl,maxl):
     # importing the needed libraries
     import torch
     import json 
@@ -60,8 +62,8 @@ def Asummarize(text):
     summary_ids = model.generate(tokenized_text,
                                         num_beams=10,
                                         no_repeat_ngram_size=2,
-                                        min_length=100,
-                                        max_length=200,
+                                        min_length=minl,
+                                        max_length=maxl,
                                         early_stopping=True)
 
     output = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
@@ -133,7 +135,9 @@ def Esummarize(text):
 
 if(submit==True):
     if(len(text.split())>=100):
-        outputt=Asummarize(text)
+        minl=int(minl)
+        maxl=int(maxl)
+        outputt=Asummarize(text,minl,maxl)
         st.subheader(outputt, anchor=None)
         submit=False
     else:

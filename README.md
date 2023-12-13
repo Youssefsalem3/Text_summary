@@ -1,7 +1,7 @@
 # Text Summarizer
 
 Text summarization refers to the technique of shortening long pieces of text. The intention is to create a coherent and fluent summary having only the main points outlined in the document.
-![Form](https://www.imgbly.com/ib/XDUkUYNtNg)
+![Demo](https://www.imgbly.com/ib/XDUkUYNtNg.png)
 
 
 In fact, the International Data Corporation (IDC) projects that the total amount of digital data circulating annually around the world would sprout from 4.4 zettabytes in 2013 to hit 180 zettabytes in 2025. That’s a lot of data!
